@@ -21,6 +21,50 @@ if (themeToggleBtn) {
 }
 
 /* =========================
+   TRADUÇÃO (PT / EN)
+========================== */
+const translations = {
+    pt: {
+        "header-subtitle": "tudo o que você procura, em um só lugar",
+        "contact-title": "Contato",
+        "contact-subtitle": "Para trabalhos ou parcerias, envie uma mensagem direta:",
+        "contact-btn": "Enviar Mensagem"
+    },
+    en: {
+        "header-subtitle": "everything you're looking for, in one place",
+        "contact-title": "Contact",
+        "contact-subtitle": "For work or partnerships, send a direct message:",
+        "contact-btn": "Send Message"
+    }
+};
+
+const langToggleBtn = document.getElementById("lang-toggle");
+const langText = document.getElementById("lang-text");
+let currentLang = localStorage.getItem("lang") || "pt";
+
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("lang", lang);
+    langText.textContent = lang === "pt" ? "🇺🇸 EN" : "🇧🇷 PT";
+    document.documentElement.setAttribute("lang", lang === "pt" ? "pt-BR" : "en");
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
+    });
+}
+
+setLanguage(currentLang);
+
+if (langToggleBtn) {
+    langToggleBtn.addEventListener("click", () => {
+        setLanguage(currentLang === "pt" ? "en" : "pt");
+    });
+}
+
+/* =========================
    2. PLAYER TOCA-DISCOS (HORIZONTAL COM TIMELINE)
 ========================== */
 const openPlayerBtn = document.getElementById("open-player-btn");
@@ -233,3 +277,94 @@ document.addEventListener("mousemove", (event) => {
     mouseGlow.style.top = `${event.clientY}px`;
 });
 
+/* Lógica do Modal de PIX Rápido */
+const openPixBtn = document.getElementById("open-pix-btn");
+const pixModal = document.getElementById("pix-modal");
+const pixClose = document.getElementById("pix-close");
+const copyPixBtn = document.getElementById("copy-pix-btn");
+const pixKeyInput = document.getElementById("pix-key-input");
+const pixCopyStatus = document.getElementById("pix-copy-status");
+
+if (openPixBtn && pixModal && pixClose) {
+    openPixBtn.addEventListener("click", () => {
+        pixCopyStatus.textContent = "";
+        pixModal.showModal();
+    });
+    pixClose.addEventListener("click", () => {
+        pixModal.close();
+    });
+}
+
+if (copyPixBtn && pixKeyInput) {
+    copyPixBtn.addEventListener("click", () => {
+        pixKeyInput.select();
+        pixKeyInput.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(pixKeyInput.value).then(() => {
+            pixCopyStatus.textContent = "Chave copiada com sucesso! ✓";
+            setTimeout(() => { pixCopyStatus.textContent = ""; }, 3000);
+        });
+    });
+}
+
+/* =========================
+   VERIFICAÇÃO AUTOMÁTICA DE LIVE (TWITCH)
+========================== */
+async function checkTwitchLive() {
+    const twitchBadge = document.querySelector(".twitch-badge");
+    const twitchStatusText = document.querySelector(".twitch-status");
+    
+    if (!twitchBadge || !twitchStatusText) return;
+
+    try {
+        // Consulta uma API pública gratuita que verifica o tempo de live do canal
+        const response = await fetch("https://decapi.me/twitch/uptime/yumefemboy");
+        const data = await response.text();
+
+        // Se a resposta NÃO contiver "offline" ou "not live", significa que o canal está transmitindo!
+        if (data && !data.includes("offline") && !data.includes("not live")) {
+            twitchStatusText.textContent = "🔴 AO VIVO AGORA!";
+            twitchBadge.classList.add("online");
+        } else {
+            twitchStatusText.textContent = "Twitch (Offline)";
+            twitchBadge.classList.remove("online");
+        }
+    } catch (error) {
+        console.warn("Não foi possível verificar o status da Twitch:", error);
+    }
+}
+
+// Executa assim que a página abre
+checkTwitchLive();
+
+// Opcional: Re-checa a cada 2 minutos (120000 ms) para atualizar sozinho se você abrir live
+setInterval(checkTwitchLive, 120000);
+
+/* =========================
+   VERIFICAÇÃO AUTOMÁTICA DE LIVE (TIKTOK)
+========================== */
+async function checkTikTokLive() {
+    const tiktokBadge = document.querySelector(".tiktok-badge");
+    const tiktokStatusText = document.querySelector(".tiktok-status");
+    
+    if (!tiktokBadge || !tiktokStatusText) return;
+
+    try {
+        // O TikTok bloqueia requisições diretas do navegador por segurança (CORS).
+        // Deixamos a estrutura pronta igual à da Twitch. 
+        // Dica: Se quiser testar o selo aceso, basta alterar a variável 'isOnline' para true.
+        const isOnline = false; 
+
+        if (isOnline) {
+            tiktokStatusText.textContent = "🔴 AO VIVO AGORA!";
+            tiktokBadge.classList.add("online");
+        } else {
+            tiktokStatusText.textContent = "TikTok (Offline)";
+            tiktokBadge.classList.remove("online");
+        }
+    } catch (error) {
+        console.warn("Não foi possível verificar o status do TikTok:", error);
+    }
+}
+
+// Executa a verificação do TikTok
+checkTikTokLive();

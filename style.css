@@ -43,7 +43,7 @@ body {
 a { color: inherit; text-decoration: none; }
 
 .container {
-    width: min(calc(100% - 32px), 760px);
+    width: min(calc(100% - 40px), 1140px); /* Deixa a página muito mais larga no PC */
     margin: 0 auto;
     position: relative;
 }
@@ -277,12 +277,24 @@ body:not([data-theme]) .icon-sun { display: none; }
 }
 [data-theme="dark"] .link-card:hover { background: rgba(50, 40, 48, 0.8); }
 
-.social-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 34px; }
-.link-card { display: flex; align-items: center; width: 100%; min-height: 66px; padding: 9px 13px; }
+.social-links { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas lado a lado no PC */
+    gap: 12px; 
+    margin-bottom: 34px; 
+}
+.link-card { 
+    display: flex; 
+    align-items: center; 
+    width: 100%;           /* Ocupa 100% da largura do container */
+    min-height: 82px;      /* Altura bem imponente */
+    padding: 16px 28px;    /* Espaçamento lateral maior */
+    border-radius: 18px; 
+}
 .link-icon, .link-name, .link-lock, .link-arrow { position: relative; z-index: 2; }
-.link-icon { flex: 0 0 43px; width: 43px; height: 43px; display: flex; align-items: center; justify-content: center; border-radius: 13px; color: var(--cor-primaria); font-size: 20px; font-weight: 700; }
-.link-icon img { width: 25px; height: 25px; object-fit: contain; }
-.link-name { flex: 1; padding: 0 11px; font-size: 14px; font-weight: 700; }
+.link-icon { flex: 0 0 50px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 14px; color: var(--cor-primaria); font-size: 24px; font-weight: 700; }
+.link-icon img { width: 28px; height: 28px; object-fit: contain; }
+.link-name { flex: 1; padding: 0 16px; font-size: 16px; font-weight: 800; }
 .link-lock img { width: 16px; height: 16px; opacity: 0.72; margin-right: 8px; }
 .link-arrow { flex: 0 0 20px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: var(--texto-secundario); font-size: 18px; transition: transform 0.2s ease, color 0.2s ease; }
 .link-card:hover .link-arrow { color: var(--cor-primaria); transform: translateX(3px); }
@@ -478,4 +490,160 @@ footer nav a:hover { color: var(--cor-primaria); transform: translateY(-1px); }
 
     .mouse-glow { display: none; }
     .waves-container { height: 12vh; min-height: 70px; }
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza tudo o que está dentro (foto e selo) */
+    margin-bottom: 20px;
+}
+
+/* Estilo do Selo Ao Vivo */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--fundo-card);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--texto-principal);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.08);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    margin-top: 5px;
+    text-decoration: none;
+}
+.live-dot {
+    width: 9px;
+    height: 9px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    animation: livePulse 1.5s infinite;
+}
+@keyframes livePulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 204, 113, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+.live-arrow { font-size: 14px; opacity: 0.7; }
+
+/* Estilo do Card PIX (Link Direto) */
+.pix-card-btn {
+    border: 1px dashed var(--cor-primaria) !important;
+    background: rgba(178, 77, 145, 0.04) !important;
+}
+
+/* Container dos selos ao vivo */
+.live-badges-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+}
+
+/* Ajustes dos selos individuais */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--fundo-card);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--texto-principal);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.08);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+}
+.live-badge:hover {
+    transform: translateY(-2px);
+    border-color: rgba(46, 204, 113, 0.6);
+}
+
+/* Cores das bolinhas pulsantes */
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71; /* Verde padrão Twitch */
+    border-radius: 50%;
+    animation: livePulse 1.5s infinite;
+}
+/* Cor da bolinha do TikTok */
+.tiktok-dot {
+    background-color: #fe2c55 !important;
+    animation: livePulse 1.5s infinite !important;
+}
+
+@keyframes livePulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(46, 204, 113, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+.live-arrow { font-size: 12px; opacity: 0.7; }
+
+.top-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px 20px 0;
+}
+#theme-toggle, #lang-toggle {
+    background: var(--fundo-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: 50px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--texto-principal);
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s ease;
+}
+#theme-toggle:hover, #lang-toggle:hover { transform: scale(1.05); }
+
+/* Quando a Twitch estiver online, o selo ganha destaque especial */
+.live-badge.online {
+    border-color: #2ecc71 !important;
+    background: rgba(46, 204, 113, 0.1) !important;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.25);
+}
+
+/* Por padrão (offline), a bolinha da Twitch fica cinza e estática */
+.twitch-badge .live-dot {
+    background-color: #95a5a6 !important;
+    animation: none !important;
+    box-shadow: none !important;
+}
+
+/* Quando a classe .online for ativada pelo JS, ela fica verde e pula */
+.twitch-badge.online .live-dot {
+    background-color: #2ecc71 !important;
+    animation: livePulse 1.5s infinite !important;
+}
+
+/* Padrão TikTok Offline (cinza) */
+.tiktok-badge .live-dot {
+    background-color: #95a5a6 !important;
+    animation: none !important;
+    box-shadow: none !important;
+}
+
+/* Quando online no TikTok (rosa/vermelho piscando com brilho) */
+.tiktok-badge.online .live-dot {
+    background-color: #fe2c55 !important;
+    animation: livePulse 1.5s infinite !important;
+}
+
+.live-badge.online.tiktok-badge {
+    border-color: #fe2c55 !important;
+    background: rgba(254, 44, 85, 0.1) !important;
+    box-shadow: 0 0 20px rgba(254, 44, 85, 0.25);
 }
