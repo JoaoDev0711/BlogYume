@@ -200,3 +200,20 @@ if (contactForm) {
         submitBtn.disabled = false;
     });
 }
+
+/* =========================
+   6. SCROLL REVEAL (ANIMAÇÃO DE ENTRADA)
+========================== */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-show");
+            observer.unobserve(entry.target); 
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+const hiddenElements = document.querySelectorAll(".reveal-hidden");
+hiddenElements.forEach((el) => observer.observe(el));
