@@ -647,3 +647,118 @@ footer nav a:hover { color: var(--cor-primaria); transform: translateY(-1px); }
     background: rgba(254, 44, 85, 0.1) !important;
     box-shadow: 0 0 20px rgba(254, 44, 85, 0.25);
 }
+
+/* =========================
+   INTERRUPTOR (BANDEIRA X TEXTO - TROCA DIRETA)
+========================== */
+.lang-switch-btn {
+    position: relative;
+    display: block;
+    width: 70px;
+    height: 32px;
+    background: var(--fundo-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: 50px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s ease;
+}
+.lang-switch-btn:hover { border-color: var(--cor-primaria); }
+
+/* Textos nas laterais */
+.side-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--texto-secundario);
+    transition: opacity 0s; /* Tempo zero para aparecer/sumir sem ser coberto */
+}
+
+/* Estado Inicial: Bandeira BR na Esquerda */
+.text-pt { 
+    left: 10px; 
+    opacity: 0; 
+    transition-delay: 0s; 
+}
+.text-en { 
+    right: 10px; 
+    opacity: 1; 
+    transition-delay: 0.3s; /* Só aparece quando a bola termina de sair */
+}
+
+/* A BOLA redonda que desliza */
+.lang-ball {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2;
+}
+
+/* Bandeiras preenchendo a bolinha inteira */
+.flag-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.pt-flag { opacity: 1; transform: scale(1); }
+.en-flag { opacity: 0; transform: scale(0.5); }
+
+/* =========================
+   ESTADO: INGLÊS ATIVO (Bandeira EUA selecionada)
+========================== */
+.lang-switch-btn[data-active="en"] .lang-ball {
+    transform: translateX(38px);
+}
+.lang-switch-btn[data-active="en"] .pt-flag {
+    opacity: 0; transform: scale(0.5);
+}
+.lang-switch-btn[data-active="en"] .en-flag {
+    opacity: 1; transform: scale(1);
+}
+
+/* Troca de Textos: O 'EN' some imediatamente e o 'PT' aparece depois da bola sair */
+.lang-switch-btn[data-active="en"] .text-pt {
+    opacity: 1; 
+    transition-delay: 0.3s; /* Espera a bola sair da esquerda */
+}
+.lang-switch-btn[data-active="en"] .text-en {
+    opacity: 0; 
+    transition-delay: 0s; /* Some na hora para a bola ocupar a direita */
+}
+
+/* Estilização do container do ícone dentro do card */
+.link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Espaço entre o ícone e o texto */
+    /* (mantenha os outros estilos que você já tem no .link-card aqui) */
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;  /* Tamanho fixo elegante para o ícone */
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.social-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Se os seus ícones forem pretos/brancos e você quiser que eles sigam a cor do texto do site: */
+    /* filter: var(--icone-filtro); */
+}

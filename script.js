@@ -21,46 +21,75 @@ if (themeToggleBtn) {
 }
 
 /* =========================
-   TRADUÇÃO (PT / EN)
+   TRADUÇÃO (PT / EN) COM SWITCH ANIMADO
 ========================== */
 const translations = {
     pt: {
-        "header-subtitle": "tudo o que você procura, em um só lugar",
+        "links-subtitle": "Meus Links",
+        "p-links-subtitle": "tudo o que você procura, em um só lugar",
+        "about-subtitle": "Sobre Mim",
+        "about-description": "criador de conteúdo, streamer, personalidade digital",
         "contact-title": "Contato",
         "contact-subtitle": "Para trabalhos ou parcerias, envie uma mensagem direta:",
-        "contact-btn": "Enviar Mensagem"
+        "contact-btn": "Enviar Mensagem",
+        "age-subtitle": "Verificação de Idade",
+        "age-description": "Este conteúdo é restrito para maiores de 18 anos. Por favor, confirme sua idade para continuar.",
+        "age-birth-date": "Informe sua data de nascimento:",
+        "age-confirm": "Confirmar",
+        "age-cancel": "Voltar",
+        "pix-name": "Apoie o Canal (LivePix)",
+        "btn-play-music": "Ouvir Música"
+        
     },
     en: {
-        "header-subtitle": "everything you're looking for, in one place",
+        "links-subtitle": "My Links",
+        "p-links-subtitle": "everything you're looking for, in one place",
+        "about-subtitle": "About Me",
+        "about-description": "content creator, streamer, digital personality",
         "contact-title": "Contact",
         "contact-subtitle": "For work or partnerships, send a direct message:",
-        "contact-btn": "Send Message"
+        "contact-btn": "Send Message",
+        "age-confirm": "Confirm",
+        "age-cancel": "Cancel",
+        "age-subtitle": "Age Verification",
+        "age-description": "This content is restricted to users over 18. Please confirm your age to continue.",
+        "age-birth-date": "Please enter your date of birth:",
+        "pix-name": "Support the Channel (LivePix)",
+        "btn-play-music": "Listen to Music",
+
+        
     }
 };
 
 const langToggleBtn = document.getElementById("lang-toggle");
-const langText = document.getElementById("lang-text");
 let currentLang = localStorage.getItem("lang") || "pt";
 
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("lang", lang);
-    langText.textContent = lang === "pt" ? "🇺🇸 EN" : "🇧🇷 PT";
     document.documentElement.setAttribute("lang", lang === "pt" ? "pt-BR" : "en");
 
+    // Atualiza o estado do interruptor animado
+    if (langToggleBtn) {
+        langToggleBtn.setAttribute("data-active", lang);
+    }
+
+    // Traduz os textos marcados
     document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        if (translations[lang][key]) {
+        if (translations[lang] && translations[lang][key]) {
             el.textContent = translations[lang][key];
         }
     });
 }
 
+// Inicializa na carga da página
 setLanguage(currentLang);
 
 if (langToggleBtn) {
     langToggleBtn.addEventListener("click", () => {
-        setLanguage(currentLang === "pt" ? "en" : "pt");
+        const newLang = currentLang === "pt" ? "en" : "pt";
+        setLanguage(newLang);
     });
 }
 
