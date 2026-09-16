@@ -859,3 +859,221 @@ dialog:focus-visible {
         min-height: 80px;
     }
 }
+
+/* =========================
+   1. DARK MODE (VARIÁVEIS)
+========================== */
+:root {
+    --bg-base: #f8edf5;
+    --texto-principal: #2b2030;
+    --texto-secundario: #81717e;
+    --fundo-card: rgba(255, 255, 255, 0.72);
+    --borda-suave: rgba(178, 77, 145, 0.12);
+    --input-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+    --bg-base: #140d12;
+    --texto-principal: #f5edf3;
+    --texto-secundario: #bdaeb9;
+    --fundo-card: rgba(30, 20, 28, 0.65);
+    --borda-suave: rgba(255, 255, 255, 0.08);
+    --input-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Aplicação das variáveis de cor */
+body {
+    background-color: var(--bg-base);
+    color: var(--texto-principal);
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+[data-theme="dark"] body::before, [data-theme="dark"] body::after {
+    opacity: 0.5; /* Escurece os reflexos no fundo no modo escuro */
+}
+
+/* Botão Dark Mode */
+.theme-toggle-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 0;
+}
+
+#theme-toggle {
+    background: var(--fundo-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: 50px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s ease;
+    backdrop-filter: blur(8px);
+}
+
+#theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Oculta o ícone oposto */
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: none; }
+body:not([data-theme]) .icon-sun { display: none; } /* Padrão claro */
+
+/* Atualizando Cards para suportar as variáveis */
+.link-card, .social-card, .contact-section, .info-card h2, .info-card p, .contact-section h2, .contact-section p, .link-name, .link-content strong {
+    background: var(--fundo-card);
+    border-color: var(--borda-suave);
+    color: var(--texto-principal);
+}
+.link-content small, .contact-section p {
+    color: var(--texto-secundario);
+}
+
+
+/* =========================
+   2. TOCA-DISCOS (VINIL)
+========================== */
+.turntable-card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 320px;
+    padding: 15px 20px !important;
+    border-radius: 24px !important;
+}
+
+.turntable {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .turntable { background: rgba(0,0,0,0.3); }
+
+.vinyl-record {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    background-image: repeating-radial-gradient(#111, #111 2px, #1a1a1a 3px, #1a1a1a 5px);
+    transition: transform 0.3s ease;
+}
+
+.vinyl-label {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--cor-primaria, #b24d91);
+    color: white;
+    font-size: 7px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #222;
+}
+
+/* O braço da agulha */
+.tonearm {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 6px;
+    height: 45px;
+    background: #ccc;
+    border-radius: 3px;
+    transform-origin: top center;
+    transform: rotate(-30deg); /* Posição de repouso */
+    transition: transform 0.5s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.tonearm::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: -2px;
+    width: 10px;
+    height: 14px;
+    background: #888;
+    border-radius: 2px;
+}
+
+/* Quando estiver tocando */
+.turntable.playing .vinyl-record {
+    animation: spinVinyl 2s linear infinite;
+}
+.turntable.playing .tonearm {
+    transform: rotate(20deg); /* Agulha em cima do disco */
+}
+
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.player-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* FORMULÁRIO DE CONTATO */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--borda-suave);
+    border-radius: 12px;
+    background: var(--input-bg);
+    color: var(--texto-principal);
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: var(--cor-primaria, #b24d91);
+}
+
+.contact-form button {
+    background: var(--cor-primaria, #b24d91);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.contact-form button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.form-status {
+    font-size: 12px;
+    font-weight: bold;
+    min-height: 18px;
+}

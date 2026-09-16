@@ -1,4 +1,6 @@
-/* Verificação de idade */
+/* =========================
+   1. VERIFICAÇÃO DE IDADE
+========================== */
 function hasAgeVerification() {
     try {
         return sessionStorage.getItem("ageVerified") === "true";
@@ -16,32 +18,22 @@ function saveAgeVerification() {
 }
 
 function is18OrOlder(dateString) {
-    if (!dateString) {
-        return false;
-    }
-
+    if (!dateString) return false;
+    
     const birthDate = new Date(`${dateString}T00:00:00`);
     const today = new Date();
-
-    if (Number.isNaN(birthDate.getTime())) {
-        return false;
-    }
-
-    if (birthDate > today) {
-        return false;
-    }
-
+    
+    if (Number.isNaN(birthDate.getTime()) || birthDate > today) return false;
+    
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDifference = today.getMonth() - birthDate.getMonth();
-
+    
     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-
     return age >= 18;
 }
 
-/* Elementos da verificação */
 const ageModal = document.getElementById("age-modal");
 const ageForm = document.getElementById("age-form");
 const birthDate = document.getElementById("birth-date");
@@ -50,25 +42,20 @@ const ageCancel = document.getElementById("age-cancel");
 const ageRestrictedLinks = document.querySelectorAll(".age-restricted");
 let selectedLink = null;
 
-/* Configuração do Modal */
 if (ageModal && ageForm && birthDate && ageError && ageCancel) {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
-    
     birthDate.max = `${year}-${month}-${day}`;
 
-    /* Clique nos conteúdos +18 */
     ageRestrictedLinks.forEach((link) => {
         link.addEventListener("click", (event) => {
             event.preventDefault();
-
             if (hasAgeVerification()) {
                 window.open(link.href, "_blank");
                 return;
             }
-
             selectedLink = link;
             birthDate.value = "";
             ageError.textContent = "";
@@ -76,26 +63,18 @@ if (ageModal && ageForm && birthDate && ageError && ageCancel) {
         });
     });
 
-    /* Cancelar */
     ageCancel.addEventListener("click", () => {
         ageModal.close();
         selectedLink = null;
     });
 
-    /* Confirmar idade */
     ageForm.addEventListener("submit", (event) => {
         event.preventDefault();
-
-        const isAdult = is18OrOlder(birthDate.value);
-
-        if (isAdult) {
+        if (is18OrOlder(birthDate.value)) {
             saveAgeVerification();
             ageError.textContent = "";
             ageModal.close();
-
-            if (selectedLink) {
-                window.open(selectedLink.href, "_blank");
-            }
+            if (selectedLink) window.open(selectedLink.href, "_blank");
             selectedLink = null;
         } else {
             ageError.textContent = "Você precisa ter 18 anos ou mais para acessar este conteúdo.";
@@ -103,7 +82,10 @@ if (ageModal && ageForm && birthDate && ageError && ageCancel) {
     });
 }
 
-/* Efeito de luz seguindo o mouse (Glow Fixado) */
+
+/* =========================
+   2. EFEITOS VISUAIS (MOUSE)
+========================== */
 const mouseGlow = document.createElement("div");
 mouseGlow.className = "mouse-glow";
 document.body.appendChild(mouseGlow);
@@ -113,82 +95,108 @@ document.addEventListener("mousemove", (event) => {
     mouseGlow.style.top = `${event.clientY}px`;
 });
 
-/* Efeito de luz (Hover) internamente nos cards */
-const hoverCards = document.querySelectorAll(".link-card, .social-card");
-
+const hoverCards = document.querySelectorAll(".link-card, .social-card, .contact-section");
 hoverCards.forEach((card) => {
     card.addEventListener("mousemove", (event) => {
         const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
+        card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);
     });
 });
 
-/* Player de Música */
+
+/* =========================
+   3. DARK MODE (TEMA)
+========================== */
+const themeToggleBtn = document.getElementById("theme-toggle");
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme) {
+    document.body.setAttribute("data-theme", currentTheme);
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+        let theme = document.body.getAttribute("data-theme");
+        if (theme === "dark") {
+            document.body.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+        } else {
+            document.body.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+        }
+    });
+}
+
+
+/* =========================
+   4. PLAYER TOCA-DISCOS
+========================== */
 const playBtn = document.getElementById("play-pause-btn");
 const audio = document.getElementById("bg-music");
-const vinyl = document.getElementById("vinyl-record");
+const turntable = document.querySelector(".turntable");
+const volumeSlider = document.getElementById("volume-slider");
 
-if (playBtn && audio && vinyl) {
+if (playBtn && audio && turntable) {
     playBtn.addEventListener("click", () => {
         if (audio.paused) {
-            audio.play().catch(e => console.warn("Erro ao reproduzir áudio:", e));
-            vinyl.classList.add("playing");
+            audio.play().catch(e => console.warn("Erro ao reproduzir:", e));
+            turntable.classList.add("playing");
             playBtn.innerHTML = "❚❚"; 
         } else {
             audio.pause();
-            vinyl.classList.remove("playing");
+            turntable.classList.remove("playing");
             playBtn.innerHTML = "▶";
         }
     });
-}
 
-/* Saudação Dinâmica */
-const saudacaoElement = document.getElementById("saudacao");
-
-if (saudacaoElement) {
-    const horaAtual = new Date().getHours();
-    let textoSaudacao = "Olá!";
-
-    if (horaAtual >= 5 && horaAtual < 12) {
-        textoSaudacao = "Bom dia!";
-    } else if (horaAtual >= 12 && horaAtual < 18) {
-        textoSaudacao = "Boa tarde!";
-    } else {
-        textoSaudacao = "Boa noite!";
+    if (volumeSlider) {
+        audio.volume = volumeSlider.value;
+        volumeSlider.addEventListener("input", (event) => {
+            audio.volume = event.target.value;
+        });
     }
-
-    saudacaoElement.textContent = textoSaudacao;
 }
 
-/* Scroll Reveal com Intersection Observer */
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-show");
-            // Parar de observar depois que aparecer a primeira vez
-            observer.unobserve(entry.target); 
+
+/* =========================
+   5. FORMULÁRIO DE CONTATO (API)
+========================== */
+const contactForm = document.getElementById("contact-form");
+const formStatus = document.getElementById("form-status");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        
+        const submitBtn = document.getElementById("submit-btn");
+        submitBtn.textContent = "Enviando...";
+        submitBtn.disabled = true;
+
+        const formData = new FormData(contactForm);
+
+        try {
+            // Lembre-se de colocar o seu ID do Formspree aqui
+            const response = await fetch("https://formspree.io/f/COLOQUE_SEU_ID_AQUI", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                formStatus.textContent = "Mensagem enviada com sucesso! 💜";
+                formStatus.style.color = "green";
+                contactForm.reset();
+            } else {
+                formStatus.textContent = "Oops! Ocorreu um erro ao enviar.";
+                formStatus.style.color = "red";
+            }
+        } catch (error) {
+            formStatus.textContent = "Erro de conexão. Tente novamente.";
+            formStatus.style.color = "red";
         }
-    });
-}, {
-    threshold: 0.1 // O elemento aparece quando 10% dele estiver visível
-});
 
-const hiddenElements = document.querySelectorAll(".reveal-hidden");
-hiddenElements.forEach((el) => observer.observe(el));
-
-/* Controle de Volume */
-const volumeSlider = document.getElementById("volume-slider");
-
-if (volumeSlider && audio) {
-    // Define o volume inicial da música igual ao do slider (50%)
-    audio.volume = volumeSlider.value;
-    
-    // Escuta o evento 'input' (quando o usuário arrasta a barra)
-    volumeSlider.addEventListener("input", (event) => {
-        audio.volume = event.target.value;
+        submitBtn.textContent = "Enviar Mensagem";
+        submitBtn.disabled = false;
     });
 }
