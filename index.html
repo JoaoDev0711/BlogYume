@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,156 +7,131 @@
     <title>Meus Links</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body id="top">
+
+    <!-- BOTÃO DARK MODE -->
+    <div class="theme-toggle-wrapper container">
+        <button id="theme-toggle" aria-label="Alternar Tema">
+            <span class="icon-sun">☀️</span>
+            <span class="icon-moon">🌙</span>
+        </button>
+    </div>
 
     <main class="container">
 
-        <!-- BOTÃO DARK MODE -->
-        <div class="theme-toggle-wrapper">
-            <button id="theme-toggle" aria-label="Alternar Tema">
-                <span class="icon-sun">☀️</span>
-                <span class="icon-moon">🌙</span>
-            </button>
-        </div>
-
-        
         <!-- =========================
-             CABEÇALHO
+             CABEÇALHO E PERFIL
         ========================== -->
         <header class="profile-header">
-            <div class="header-decoration" aria-hidden="true">
-                ♡ ✦ ♡
-            </div>
+            <div class="header-decoration" aria-hidden="true">♡ ✦ ♡</div>
             <h1>Meus Links</h1>
-            <p>
-            <span id="saudacao">Olá!</span> Tudo o que você procura, em um só lugar
-            </p>
+            <p>tudo o que você procura, em um só lugar</p>
         </header>
 
-
-        <!-- =========================
-             INFORMAÇÕES DO PERFIL E PLAYER
-        ========================== -->
         <section class="profile-info">
-
-            <!-- SOBRE MIM -->
-            <div class="info-card about">
+            <div class="info-card about" style="display:none;">
                 <h2>Sobre Mim</h2>
                 <p>criador de conteúdo, streamer, personalidade digital</p>
             </div>
 
-            <!-- FOTO -->
+            <!-- FOTO DE PERFIL (Squircle) -->
             <div class="profile-image">
-                <img src="assets/profile.jpg" alt="Foto de perfil">
+                <img src="assets/profile/avatar.png" alt="Foto de perfil">
             </div>
+        </section>
 
-            <!-- PLAYER DE MÚSICA -->
-            <!-- PLAYER DE TOCA-DISCOS -->
-            <div class="music-player-container">
-                <div class="link-card turntable-card">
-                    
-                    <!-- O Toca-discos -->
+
+        <!-- =========================
+             PLAYER DE TOCA-DISCOS (EXPANDIDO NA HORIZONTAL)
+        ========================== -->
+        <section class="highlights-section reveal-hidden" style="text-align: center; margin-bottom: 30px;">
+            
+            <!-- Botão Inicial -->
+            <button id="open-player-btn" class="player-toggle-btn" aria-label="Abrir Player de Música">
+                🎵 Ouvir Música
+            </button>
+
+            <!-- Card do Toca-Discos Horizontal (Inicia Oculto) -->
+            <div class="link-card turntable-card hidden" id="turntable-card">
+                <button id="close-player-btn" class="close-player-btn" aria-label="Fechar Player">✖</button>
+                
+                <div class="player-inner-flex">
+                    <!-- Lado Esquerdo: O Toca-Discos -->
                     <div class="turntable">
                         <div class="vinyl-record" id="vinyl-record">
                             <div class="vinyl-label">Yume</div>
                         </div>
-                        <!-- Braço do Toca-discos -->
                         <div class="tonearm" id="tonearm"></div>
                     </div>
                     
-                    <!-- Controles -->
-                    <div class="player-controls">
+                    <!-- Lado Direito: Controles e Timeline -->
+                    <div class="player-right-side">
                         <span class="player-track">Minha Música</span>
+                        
+                        <!-- Barra de Tempo / Progresso -->
+                        <div class="timeline-container">
+                            <span id="current-time">0:00</span>
+                            <input type="range" id="progress-bar" value="0" min="0" max="100" step="0.1" aria-label="Progresso da música">
+                            <span id="total-duration">0:00</span>
+                        </div>
+
                         <div class="player-actions">
                             <button id="play-pause-btn" class="play-btn" aria-label="Tocar ou Pausar">▶</button>
                             <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" aria-label="Volume">
                         </div>
                     </div>
-
-                    <audio id="bg-music" loop preload="metadata">
-                        <source src="assets/music/musica.mp3" type="audio/mpeg">
-                    </audio>
                 </div>
-            </div>
 
-            <!-- REDES -->
-            <div class="info-card social-intro">
-                <h2>Minhas Redes Sociais</h2>
-                <p>Me siga nas redes sociais e fique por dentro de tudo!</p>
+                <audio id="bg-music" preload="metadata">
+                    <source src="assets/music/music.mp3" type="audio/mpeg">
+                </audio>
             </div>
-
         </section>
 
-
         <!-- =========================
-             LINKS PRINCIPAIS
+             LINKS PRINCIPAIS (+18)
         ========================== -->
-        <section class="social-links" aria-label="Todos os meus links para as redes sociais">
+        <section class="social-links" aria-label="Meus links principais">
 
             <a class="link-card age-restricted reveal-hidden" href="https://privacy.com.br/checkout/yumefemboy" target="_blank" rel="noopener noreferrer">
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/privacy.svg" alt="">
-                </span>
+                <span class="link-icon" aria-hidden="true"><img src="assets/icons/privacy.svg" alt=""></span>
                 <span class="link-name">Privacy</span>
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/lock.svg" alt="">
-                </span>
+                <span class="link-lock" aria-hidden="true"><img src="assets/icons/lock.svg" alt=""></span>
                 <span class="link-arrow" aria-hidden="true">➔</span>
             </a>
 
             <a class="link-card age-restricted reveal-hidden" href="https://fatalfans.com/yumefemboy" target="_blank" rel="noopener noreferrer">
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/fatalfans.png" alt="">
-                </span>
+                <span class="link-icon" aria-hidden="true"><img src="assets/icons/fatalfans.png" alt=""></span>
                 <span class="link-name">FatalFans</span>
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/lock.svg" alt="">
-                </span>
+                <span class="link-lock" aria-hidden="true"><img src="assets/icons/lock.svg" alt=""></span>
                 <span class="link-arrow" aria-hidden="true">➔</span>
             </a>
 
             <a class="link-card age-restricted reveal-hidden" href="https://onlyfans.com/yumethefemboy" target="_blank" rel="noopener noreferrer">
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/onlyfans.svg" alt="">
-                </span>
+                <span class="link-icon" aria-hidden="true"><img src="assets/icons/onlyfans.svg" alt=""></span>
                 <span class="link-name">OnlyFans</span>
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/lock.svg" alt="">
-                </span>
+                <span class="link-lock" aria-hidden="true"><img src="assets/icons/lock.svg" alt=""></span>
                 <span class="link-arrow" aria-hidden="true">➔</span>
             </a>
 
             <a class="link-card age-restricted reveal-hidden" href="https://t.me/+cdcXqDVMXTs4MDE5" target="_blank" rel="noopener noreferrer">
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/telegram.svg" alt="">
-                </span>
+                <span class="link-icon" aria-hidden="true"><img src="assets/icons/telegram.svg" alt=""></span>
                 <span class="link-name">Previas</span>
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/lock.svg" alt="">
-                </span>
+                <span class="link-lock" aria-hidden="true"><img src="assets/icons/lock.svg" alt=""></span>
                 <span class="link-arrow" aria-hidden="true">➔</span>
             </a>
 
             <a class="link-card age-restricted reveal-hidden" href="https://t.me/yumefemboybr" target="_blank" rel="noopener noreferrer">
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/telegram.svg" alt="">
-                </span>
+                <span class="link-icon" aria-hidden="true"><img src="assets/icons/telegram.svg" alt=""></span>
                 <span class="link-name">Grupo Vip</span>
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/lock.svg" alt="">
-                </span>
+                <span class="link-lock" aria-hidden="true"><img src="assets/icons/lock.svg" alt=""></span>
                 <span class="link-arrow" aria-hidden="true">➔</span>
             </a>
 
             <a class="link-card age-restricted reveal-hidden" href="https://fansly.com/yhmfemboy/posts" target="_blank" rel="noopener noreferrer">
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/fansly.png" alt="">
-                </span>
+                <span class="link-icon" aria-hidden="true"><img src="assets/icons/fansly.png" alt=""></span>
                 <span class="link-name">FansLy</span>
-                <span class="link-lock" aria-hidden="true">
-                    <img src="assets/icons/lock.svg" alt="">
-                </span>
+                <span class="link-lock" aria-hidden="true"><img src="assets/icons/lock.svg" alt=""></span>
                 <span class="link-arrow" aria-hidden="true">➔</span>
             </a>
 
@@ -167,61 +141,32 @@
         <!-- =========================
              REDES SOCIAIS
         ========================== -->
-        <section class="social-section">
-            <h2>Minhas Redes Sociais</h2>
-            <div class="social-links">
-
-                <a class="link-card" href="https://www.instagram.com/_yumenawara/" target="_blank" rel="noopener noreferrer">
-                    <span class="link-icon" aria-hidden="true">◎</span>
+        <section class="social-section reveal-hidden">
+            <h2 style="display: none;">Minhas Redes Sociais</h2>
+            <div class="social-links-grid">
+                <a class="social-card" href="https://www.instagram.com/_yumenawara/" target="_blank" rel="noopener noreferrer">
+                    <span class="social-icon" aria-hidden="true">◎</span>
                     <span class="link-name">Instagram</span>
-                    <span class="link-arrow" aria-hidden="true">➔</span>
                 </a>
-
-                <a class="link-card" href="https://www.tiktok.com/@yumefemboy" target="_blank" rel="noopener noreferrer">
-                    <span class="link-icon" aria-hidden="true">♪</span>
+                <a class="social-card" href="https://www.tiktok.com/@yumefemboy" target="_blank" rel="noopener noreferrer">
+                    <span class="social-icon" aria-hidden="true">♪</span>
                     <span class="link-name">TikTok</span>
-                    <span class="link-arrow" aria-hidden="true">➔</span>
                 </a>
-
-                <a class="link-card" href="https://x.com/yumeefemboy" target="_blank" rel="noopener noreferrer">
-                    <span class="link-icon" aria-hidden="true">𝕏</span>
+                <a class="social-card" href="https://x.com/yumeefemboy" target="_blank" rel="noopener noreferrer">
+                    <span class="social-icon" aria-hidden="true">𝕏</span>
                     <span class="link-name">X</span>
-                    <span class="link-arrow" aria-hidden="true">➔</span>
                 </a>
-
             </div>
         </section>
 
 
         <!-- =========================
-             OUTROS CONTEÚDOS
+             CONTATO (FORMULÁRIO API)
         ========================== -->
-        <section class="content-section">
-
-            <h2>Outros Conteúdos</h2>
-
-            <!-- MEU SETUP -->
-            <a class="link-card content-card" href="https://www.instagram.com/_yumenawara/" target="_blank" rel="noopener noreferrer">
-                <span class="link-icon" aria-hidden="true">PC</span>
-                <span class="link-content">
-                    <strong>Meu Setup</strong>
-                    <small>Veja meu PC e meus equipamentos</small>
-                </span>
-                <span class="link-arrow" aria-hidden="true">➔</span>
-            </a>
-
-        </section>
-
-
-        <!-- =========================
-             CONTATO
-        ========================== -->
-        <section class="contact-section" aria-label="Contato">
+        <section class="contact-section reveal-hidden" aria-label="Contato">
             <h2>Contato</h2>
-            <p>
-                Para trabalhos, parcerias ou qualquer outro assunto, entre em contato comigo através do e-mail:
-            </p>
-            <!-- FORMULÁRIO COM API -->
+            <p>Para trabalhos ou parcerias, envie uma mensagem direta:</p>
+            
             <form id="contact-form" class="contact-form">
                 <input type="text" id="name" name="name" placeholder="Seu nome" required>
                 <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
@@ -238,9 +183,9 @@
         <footer class="footer">
             <nav aria-label="Links do rodapé">
                 <a href="#top">Início</a>
-                <a href="https://www.instagram.com/_yumenawara/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://x.com/yumeefemboy" target="_blank" rel="noopener noreferrer">X</a>
-                <a href="https://www.tiktok.com/@yumefemboy" target="_blank" rel="noopener noreferrer">TikTok</a>
+                <a href="https://www.instagram.com/_yumenawara/" target="_blank">Instagram</a>
+                <a href="https://x.com/yumeefemboy" target="_blank">X</a>
+                <a href="https://www.tiktok.com/@yumefemboy" target="_blank">TikTok</a>
             </nav>
             <p>© 2026 Yume. Todos os direitos reservados.</p>
         </footer>
@@ -248,31 +193,7 @@
     </main>
 
     <!-- =========================
-         MODAL DE IDADE
-    ========================== -->
-    <dialog id="age-modal" class="age-modal">
-        <div class="modal-content">
-            <div class="age-modal-icon" aria-hidden="true">🔒</div>
-            <h2>Verificação de Idade</h2>
-            <p>
-                Este conteúdo é restrito para maiores de 18 anos. Por favor, confirme sua idade para continuar.
-            </p>
-            
-            <form id="age-form">
-                <label for="birth-date">Informe sua data de nascimento:</label>
-                <input type="date" id="birth-date" name="birth-date" required>
-                <p id="age-error" class="age-error" aria-live="polite"></p>
-                
-                <div class="age-modal-actions">
-                    <button type="button" id="age-cancel">Voltar</button>
-                    <button type="submit">Confirmar</button>
-                </div>
-            </form>
-        </div>
-    </dialog>
-
-    <!-- =========================
-         FUNDO DE ONDAS FLUIDAS
+         FUNDO (ONDAS FLUIDAS)
     ========================== -->
     <div class="waves-container" aria-hidden="true">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -280,7 +201,6 @@
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
             </defs>
             <g class="parallax">
-                <!-- Usando as cores suaves do seu site com opacidades diferentes -->
                 <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(211, 126, 181, 0.15)" />
                 <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(235, 174, 214, 0.20)" />
                 <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(190, 111, 170, 0.10)" />
@@ -289,7 +209,26 @@
         </svg>
     </div>
 
-    <script src="script.js"></script>
+    <!-- =========================
+         MODAL DE IDADE (+18)
+    ========================== -->
+    <dialog id="age-modal" class="age-modal">
+        <div class="modal-content">
+            <div class="age-modal-icon" aria-hidden="true">🔒</div>
+            <h2>Verificação de Idade</h2>
+            <p>Este conteúdo é restrito para maiores de 18 anos. Por favor, confirme sua idade para continuar.</p>
+            <form id="age-form">
+                <label for="birth-date">Informe sua data de nascimento:</label>
+                <input type="date" id="birth-date" name="birth-date" required>
+                <p id="age-error" class="age-error" aria-live="polite"></p>
+                <div class="age-modal-actions">
+                    <button type="button" id="age-cancel">Voltar</button>
+                    <button type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
 
+    <script src="script.js"></script>
 </body>
 </html>
