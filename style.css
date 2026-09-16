@@ -90,7 +90,7 @@ body::after {
 body:not([data-theme]) .icon-sun { display: none; }
 
 /* =========================
-   CABEÇALHO E FOTO (RETRATO VERTICAL)
+   CABEÇALHO E FOTO (RETRATO VERTICAL GARANTIDO)
 ========================== */
 .profile-header { text-align: center; padding: 20px 20px 22px; }
 .header-decoration { color: var(--cor-primaria); font-size: 17px; letter-spacing: 8px; animation: decorationFloat 3s ease-in-out infinite; }
@@ -99,8 +99,8 @@ body:not([data-theme]) .icon-sun { display: none; }
 .profile-header p { color: var(--texto-secundario); font-size: 14px; }
 
 .profile-image {
-    width: 180px;
-    height: 220px;
+    width: 160px;
+    height: 200px;
     margin: 0 auto 20px;
     border-radius: 24px;
     overflow: hidden;
@@ -312,7 +312,7 @@ body:not([data-theme]) .icon-sun { display: none; }
 .form-status { font-size: 12px; font-weight: bold; min-height: 18px; }
 
 /* =========================
-   MODAL DE IDADE & CAMPO DE DATA
+   MODAL DE IDADE & CAMPO DE DATA (CORRIGIDO PARA MOBILE)
 ========================== */
 #age-modal { width: min(90%, 430px); margin: auto; padding: 0; border: none; border-radius: 22px; background: var(--bg-base); color: var(--texto-principal); box-shadow: 0 25px 70px rgba(0,0,0,0.3); overflow: hidden; }
 #age-modal::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
@@ -325,15 +325,16 @@ body:not([data-theme]) .icon-sun { display: none; }
 
 #birth-date {
     width: 100%;
-    height: 48px;
-    padding: 0 14px;
+    height: 50px;
+    padding: 0 16px;
     border: 1px solid var(--borda-suave);
-    border-radius: 12px;
+    border-radius: 14px;
     outline: none;
     background: var(--input-bg);
     color: var(--texto-principal);
     font-family: inherit;
-    font-size: 15px;
+    font-size: 16px; /* 16px impede o zoom automático no celular e centraliza perfeitamente */
+    text-align: center;
     box-sizing: border-box;
     -webkit-appearance: none;
 }
@@ -394,7 +395,7 @@ footer nav a:hover { color: var(--cor-primaria); transform: translateY(-1px); }
     .profile-header h1 { font-size: 30px; letter-spacing: -1px; }
     .profile-header p { font-size: 13px; }
 
-    /* Foto de Perfil Retrato no Mobile */
+    /* Foto de Perfil Retrato Vertical Ajustada para Celular */
     .profile-image {
         width: 140px;
         height: 175px;
