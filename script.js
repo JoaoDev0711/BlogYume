@@ -397,3 +397,9 @@ async function checkTikTokLive() {
 
 // Executa a verificação do TikTok
 checkTikTokLive();
+
+function abrirEmail() {
+    // 👇 Coloque o e-mail do cliente aqui 👇
+    const emailDoCliente = 'yumethefemboy@protonmail.com';
+    window.location.href = `mailto:${emailDoCliente}`;
+}

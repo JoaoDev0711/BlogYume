@@ -227,34 +227,29 @@
             </div>
         </section>
 
-        <!-- =========================
-             CONTATO (FORMULÁRIO API)
-        ========================== -->
-        <section class="contact-section reveal-hidden" aria-label="Contato">
-            <h2 data-i18n="contact-title">Contato</h2>
-            <p data-i18n="contact-subtitle">Para trabalhos ou parcerias, envie uma mensagem direta:</p>
-            
-            <form id="contact-form" class="contact-form">
-                <input type="text" id="name" name="name" placeholder="Seu nome" required>
-                <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
-                <textarea id="message" name="message" placeholder="Como posso ajudar?" rows="3" required></textarea>
-                <button type="submit" id="submit-btn" data-i18n="contact-btn">Enviar Mensagem</button>
-                <p id="form-status" class="form-status"></p>
-            </form>
-        </section>
+ <section class="contact-section reveal-hidden">
+    <h2>Contato / Orçamentos</h2>
+    <p>Clique no botão abaixo para me mandar um e-mail direto!</p>
+    
+    <button class="contact-btn" onclick="abrirEmail()">Mande um E-mail</button>
+</section>
+</section>
 
-        <!-- =========================
-             RODAPÉ
-        ========================== -->
-        <footer class="footer">
-            <nav aria-label="Links do rodapé">
-                <a href="#top">Início</a>
-                <a href="https://www.instagram.com/_yumenawara/" target="_blank">Instagram</a>
-                <a href="https://x.com/yumeefemboy" target="_blank">X</a>
-                <a href="https://www.tiktok.com/@yumefemboy" target="_blank">TikTok</a>
-            </nav>
-            <p>© 2026 Yume. Todos os direitos reservados.</p>
-        </footer>
+<!-- Rodapé com Marca d'Água e QR Code para o Portfólio -->
+<footer>
+    <nav aria-label="Links do rodapé">
+        <a href="#top">Voltar ao topo</a>
+    </nav>
+    <p>© 2026 Yume. Todos os direitos reservados.</p>
+    
+    <!-- Marca d'água Comercial com QR Code -->
+    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--borda-suave); display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <span style="font-size: 11px; color: var(--texto-secundario);">Desenvolvido por <strong>JoaoDev</strong></span>
+        <a href="https://joaodev0711.github.io/portfolio/" target="_blank" title="Quero um site profissional assim!">
+            <img src="assets/qrcode.png" alt="QR Code JoaoDev" style="width: 24px; height: 24px; border-radius: 4px; object-fit: cover; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+    </div>
+</footer>
 
     </main>
 

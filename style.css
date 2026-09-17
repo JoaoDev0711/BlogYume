@@ -618,3 +618,45 @@ footer nav a:hover { color: var(--cor-primaria); transform: translateY(-1px); }
     .mouse-glow { display: none; }
     .waves-container { height: 12vh; min-height: 70px; }
 }
+
+/* Estilo da Seção e do Botão de Contato Direto */
+.contact-section {
+    background: var(--fundo-card, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--borda-suave, rgba(255, 255, 255, 0.08));
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.contact-section h2 {
+    font-size: 1.25rem;
+    color: var(--texto-principal, #fff);
+    margin-bottom: 8px;
+}
+
+.contact-section p {
+    font-size: 0.9rem;
+    color: var(--texto-secundario, #aaa);
+    margin-bottom: 20px;
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--cor-principal, #db7093);
+    color: #fff;
+    text-decoration: none; /* Tira o sublinhado do link */
+    border-radius: 8px;
+    font-weight: 600;
+    transition: filter 0.2s, transform 0.1s;
+}
+
+.contact-btn:hover {
+    filter: brightness(1.1);
+}
+
+.contact-btn:active {
+    transform: scale(0.98);
+}
