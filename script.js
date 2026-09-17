@@ -399,16 +399,23 @@ async function checkTikTokLive() {
 checkTikTokLive();
 
 function abrirEmail() {
-    // 👇 E-mail do cliente (no seu caso, o seu)
     const emailDoCliente = 'yumethefemboy@protonmail.com'; 
+    const assunto = 'Contato pelo site';
+    const corpo = 'Olá Yume,\n\nGostaria de entrar em contato sobre um orçamento.';
     
-    // Assunto e corpo padrão da mensagem
-    const assunto = encodeURIComponent('Contato pelo site');
-    const corpo = encodeURIComponent('Olá Yume,\n\nGostaria de entrar em contato sobre um orçamento.');
+    // Codifica os textos para o formato de URL
+    const assuntoUrl = encodeURIComponent(assunto);
+    const corpoUrl = encodeURIComponent(corpo);
     
-    // Monta o link exato do Gmail Web
-    const gmailUrl = `https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=${emailDoCliente}&su=${assunto}&body=${corpo}`;
+    // Detecta se o visitante está usando um celular (Android ou iOS)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     
-    // Abre o Gmail em uma nova aba
-    window.open(gmailUrl, '_blank');
+    if (isMobile) {
+        // Se for celular, usa o 'mailto:' para forçar a abertura do app nativo
+        window.location.href = `mailto:${emailDoCliente}?subject=${assuntoUrl}&body=${corpoUrl}`;
+    } else {
+        // Se for computador, abre o site do Gmail em uma nova aba
+        const gmailUrl = `https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=${emailDoCliente}&su=${assuntoUrl}&body=${corpoUrl}`;
+        window.open(gmailUrl, '_blank');
+    }
 }
