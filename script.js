@@ -399,7 +399,16 @@ async function checkTikTokLive() {
 checkTikTokLive();
 
 function abrirEmail() {
-    // 👇 Coloque o e-mail do cliente aqui 👇
-    const emailDoCliente = 'yumethefemboy@protonmail.com';
-    window.location.href = `mailto:${emailDoCliente}`;
+    // 👇 E-mail do cliente (no seu caso, o seu)
+    const emailDoCliente = 'yumethefemboy@protonmail.com'; 
+    
+    // Assunto e corpo padrão da mensagem
+    const assunto = encodeURIComponent('Contato pelo site');
+    const corpo = encodeURIComponent('Olá Yume,\n\nGostaria de entrar em contato sobre um orçamento.');
+    
+    // Monta o link exato do Gmail Web
+    const gmailUrl = `https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=${emailDoCliente}&su=${assunto}&body=${corpo}`;
+    
+    // Abre o Gmail em uma nova aba
+    window.open(gmailUrl, '_blank');
 }
